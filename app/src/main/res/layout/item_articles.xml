@@ -24,7 +24,7 @@
             card_view:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/article_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -55,7 +55,7 @@
             card_view:layout_constraintBottom_toTopOf="@+id/divider"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/img_article"
-            card_view:layout_constraintTop_toBottomOf="@+id/text_title"
+            card_view:layout_constraintTop_toBottomOf="@+id/article_title"
             card_view:layout_constraintVertical_bias="0.0" />
 
         <View
@@ -73,7 +73,7 @@
             card_view:layout_constraintTop_toBottomOf="@+id/img_article" />
 
         <TextView
-            android:id="@+id/text_author"
+            android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

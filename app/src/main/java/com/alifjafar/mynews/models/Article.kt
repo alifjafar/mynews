@@ -1,5 +1,9 @@
 package com.alifjafar.mynews.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Article(
     val source: Source,
     val author: String,
@@ -9,9 +13,10 @@ data class Article(
     val urlToImage : String,
     val publishedAt : String,
     val content: String
-)
+) : Parcelable
 
+@Parcelize
 data class Source(
-    val id: String,
+    val id: String?,
     val name: String
-)
+) : Parcelable
