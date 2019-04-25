@@ -17,6 +17,11 @@ abstract class StatedViewModel<S> : ViewModel() {
 
     fun getState(): LiveData<S> = liveState
 
+    fun setState(update: S.() -> Unit) {
+        state.update()
+        updateState()
+    }
+
     protected fun updateState() {
         liveState.value = state
     }

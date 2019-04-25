@@ -17,7 +17,11 @@ import retrofit2.http.Query
 interface NewsApiService {
 
     @GET("top-headlines")
-    fun getTopHeadlines(@Query("country") country: String?) : Call<BaseResponse<ArrayList<Article>>>
+    fun getTopHeadlines(@Query("country") country: String?,
+                        @Query("category") category: String?) : Call<BaseResponse<ArrayList<Article>>>
+
+    @GET("everything")
+    fun getEverything(@Query("q") q:String?): Call<BaseResponse<ArrayList<Article>>>
 
     companion object {
         private const val baseUrl = "https://newsapi.org/v2/"

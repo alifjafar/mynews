@@ -3,6 +3,7 @@ package com.alifjafar.mynews.base
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
+@Suppress("UNCHECKED_CAST")
 class BaseRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items: ArrayList<ViewItem<RecyclerView.ViewHolder>> = ArrayList()
     private val holderCreatorMap: HashMap<Int, (parent: ViewGroup) -> RecyclerView.ViewHolder> = HashMap()

@@ -2,4 +2,11 @@
     <string name="app_name">MyNews</string>
     <string name="token">dea5e14d3b1e4d888358a2178fffe64c</string>
     <string name="anonymouse">Anonymouse</string>
+    <string name="title_main">Tech News</string>
+    <string name="title_top_headline">Top Headline</string>
+    <string name="title_everything">Everything</string>
+    <string name="title_bitcoin">Bitcoin</string>
+    <string name="article_title">Penelitian</string>
+    <string name="article_description">Description</string>
+    <string name="article_author">Alif Jafar</string>
 </resources>
