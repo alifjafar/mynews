@@ -1,29 +1,23 @@
 package com.alifjafar.mynews.screen.article.detail
 
-import android.annotation.TargetApi
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.transition.Fade
-import android.transition.Transition
-import android.transition.TransitionInflater
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.alifjafar.mynews.R
 import com.alifjafar.mynews.models.Article
+import com.alifjafar.mynews.utils.ArticleUtil
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.activity_article.*
 
 class ArticleActivity : AppCompatActivity() {
 
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article)
-        setupWindowAnimation()
         setSupportActionBar(toolbar_article)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -38,14 +32,14 @@ class ArticleActivity : AppCompatActivity() {
             isShow = true
             var scrollRange = -1
 
-            if (scrollRange == -1) {
-                scrollRange = appBar.totalScrollRange
-            }
+            if (scrollRange == -1) scrollRange = appBar.totalScrollRange
             if (scrollRange + i == 0) {
                 collapsing_toolbar.title = article_title.text
+                toolbar_article.setBackgroundColor(ContextCompat.getColor(applicationContext, android.R.color.transparent))
                 isShow = true
             } else if (isShow) {
                 collapsing_toolbar.title = " "
+                toolbar_article.setBackgroundResource(R.drawable.gradient_black_to_white)
                 isShow = false
             }
 
@@ -54,11 +48,15 @@ class ArticleActivity : AppCompatActivity() {
 
     private fun renderArticle(article: Article?) {
         article_title.text = article?.title
-        article_content.text = article?.content
-        article_date.text = article?.publishedAt
-        author.text = article?.author
-        Glide.with(this).load(article?.urlToImage).into(imageView)
-        article_source.text = "Sumber : " + article?.source?.name
+        article_content.text = article?.content ?: (article?.description ?: article?.title)
+        article_date.text = ArticleUtil().formatDate(article?.publishedAt)
+        author.text = article?.author ?: article?.source?.name
+        Glide.with(this).load(
+            if (!article?.urlToImage.isNullOrEmpty()) article?.urlToImage
+            else ContextCompat.getDrawable(applicationContext, R.drawable.ic_image_placeholder_120dp)
+        ).optionalFitCenter().into(imageView)
+        val source: String =  getString(R.string.source) + article?.source?.name
+        article_source.text = source
         btn_read_more.setOnClickListener {
             val intent = Intent(applicationContext, WebView::class.java)
             intent.putExtra("url", article?.url)
@@ -69,13 +67,5 @@ class ArticleActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    private fun setupWindowAnimation() {
-        val fade = Fade()
-        fade.duration = 1000
-        window.enterTransition = fade
     }
 }
